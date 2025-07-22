@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const connectDB = async () => {
     try {
@@ -11,4 +11,4 @@ const connectDB = async () => {
     }
 }
 
-module.exports = { connectDB }; // ✅ CommonJS export
+export default connectDB; // Exporting the connectDB function to be used in the main server file

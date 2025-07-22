@@ -1,17 +1,17 @@
 // import express from 'express';
-const express = require('express');
+import express from 'express';
 
-const notesController = require('../Controllers/notesController.js');
+import notesController from '../Controllers/notesController.js'; // Importing the notes controller
 
 const router = express.Router();
 
 router.get('/', notesController.getAllNotes);
 router.get('/:id' , notesController.getNoteById);
- 
+
 router.post('/', notesController.createNote);
 
 router.put('/:id', notesController.updateNote);
 
 router.delete('/:id', notesController.deleteNote); 
 
-module.exports = router;
+export default router; // Exporting the router to be used in the main server file

@@ -1,4 +1,4 @@
-const ratelimit = require("../config/upstash.js"); // Importing the rate limiter instance
+import ratelimit from '../config/upstash.js'; // Importing the rate limiter instance
 
 const rateLimiter = async (req, res, next) => {
     try{
@@ -16,4 +16,4 @@ const rateLimiter = async (req, res, next) => {
 }
 
 
-module.exports = rateLimiter; // ✅ CommonJS export
+export default rateLimiter; // Exporting the rate limiter middleware to be used in the main server file

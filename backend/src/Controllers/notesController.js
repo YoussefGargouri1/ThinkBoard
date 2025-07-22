@@ -1,4 +1,4 @@
-const Note = require('../models/Note.js');
+import Note from '../models/Note.js'; // Importing the Note model
 
 async function getAllNotes(req, res) {
     try {
@@ -67,10 +67,10 @@ async function getNoteById(req, res) {
     }
 }
 
-module.exports = {
+export default {
     getAllNotes,
     createNote,
     updateNote,
     deleteNote,
     getNoteById
-};
+}; // Exporting the controller functions to be used in the notes route

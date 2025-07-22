@@ -1,5 +1,4 @@
-const mongoose = require('mongoose'); // Importing mongoose to interact with MongoDB
-
+import mongoose from 'mongoose';
 // 1- create a schema for the Note model
 // 2- create a model using the schema
 
@@ -23,4 +22,4 @@ const noteSchema = new mongoose.Schema({
 
 const Note = mongoose.model('Note', noteSchema);
 
-module.exports = Note; 
+export default Note;

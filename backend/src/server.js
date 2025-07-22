@@ -1,25 +1,25 @@
-const express = require('express');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import path from 'path'; // Importing path to serve static files
 
-// import notesRoute from './routes/notesRoute.js';
-const notesRoute = require('./routes/notesRoute.js');
+import notesRoute from './routes/notesRoute.js';
+import  connectDB  from './config/db.js'; // Importing the connectDB function
+import rateLimiter from './middleware/rateLimiter.js'; // Importing the rate limiter middleware
 
-const { connectDB } = require('./config/db.js'); 
 
-const rateLimiter = require('./middleware/rateLimiter.js'); 
-
-const dotenv = require('dotenv'); 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const __dirname = path.resolve(); // Get the current directory name 
 
 
-const cors = require('cors'); 
-app.use(cors(
-    {origin: 'http://localhost:5173', }
-)); 
-
-
+if (process.env.NODE_ENV !== 'production') {
+    app.use(cors(
+        {origin: 'http://localhost:5173', }
+    )); 
+}
 
 app.use(express.json()); // Middleware to parse JSON request bodies
 
@@ -32,6 +32,16 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/notes", notesRoute);
+
+
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../Frontend/dist'))); 
+    
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../Frontend/dist/index.html')); // Serve the React app's index.html for all other routes
+    });
+}
 
 
 connectDB().then( () => {
